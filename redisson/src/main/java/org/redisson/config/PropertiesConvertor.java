@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2013-2021 Nikita Koksharov
+ * Copyright (c) 2013-2024 Nikita Koksharov
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -81,7 +81,24 @@ public class PropertiesConvertor {
     }
 
     private static final Set<String> LIST_NODES = new HashSet<>(
-                            Arrays.asList("node-addresses", "nodeaddresses", "slave-addresses", "slaveaddresses", "addresses"));
+            Arrays.asList(
+                    "node-addresses", "nodeaddresses",
+                    "slave-addresses", "slaveaddresses",
+                    "sentinel-addresses", "sentineladdresses",
+                    "addresses"));
+
+    private static final Set<String> CLASS_PROPERTIES = new HashSet<>(
+            Arrays.asList("codec",
+                    "load-balancer", "loadbalancer",
+                    "address-resolver-group-factory", "addressresolvergroupfactory",
+                    "netty-hook", "nettyhook",
+                    "nat-mapper", "natmapper",
+                    "name-mapper", "namemapper",
+                    "command-mapper", "commandmapper",
+                    "failed-slave-node-detector", "failedSlaveNodeDetector",
+                    "connection-listener", "connectionlistener",
+                    "credentials-resolver", "credentialsresolver"
+                    ));
 
     private static void addValue(StringBuilder yaml, Map.Entry<String, Object> subEntry) {
         String value = (String) subEntry.getValue();
@@ -92,8 +109,7 @@ public class PropertiesConvertor {
             return;
         }
 
-        if ("codec".equals(subEntry.getKey())
-                || "load-balancer".equals(subEntry.getKey())) {
+        if (CLASS_PROPERTIES.contains(subEntry.getKey())) {
             value = "!<" + value + "> {}";
         } else {
             try {

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2013-2021 Nikita Koksharov
+ * Copyright (c) 2013-2024 Nikita Koksharov
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ public class JsonTypeConvertor implements Convertor<JsonType> {
 
     @Override
     public JsonType convert(Object obj) {
+        if (obj == null) {
+            return null;
+        }
         return JsonType.valueOf(obj.toString().toUpperCase());
     }
 }

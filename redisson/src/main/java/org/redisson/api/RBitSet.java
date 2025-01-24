@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2013-2021 Nikita Koksharov
+ * Copyright (c) 2013-2024 Nikita Koksharov
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -238,6 +238,14 @@ public interface RBitSet extends RExpirable, RBitSetAsync {
      * @param bs - BitSet source
      */
     void set(BitSet bs);
+
+    /**
+     * Set all bits to <code>value</code> which index in indexArray
+     *
+     * @param indexArray The index array of bits that needs to be set to <code>value</code>
+     * @param value true = 1, false = 0
+     */
+    void set(long[] indexArray, boolean value);
 
     /**
      * Executes NOT operation over all bits

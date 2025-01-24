@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2013-2021 Nikita Koksharov
+ * Copyright (c) 2013-2024 Nikita Koksharov
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,6 +44,18 @@ public interface RBlockingQueueAsync<V> extends RQueueAsync<V> {
      *         specified waiting time elapses before an element is available
      */
     RFuture<V> pollFromAnyAsync(long timeout, TimeUnit unit, String... queueNames);
+
+    /**
+     * Retrieves and removes first available head element of <b>any</b> queue in async mode,
+     * waiting up to the specified wait time if necessary for an element to become available
+     * in any of defined queues <b>including</b> queue itself.
+     *
+     * @param queueNames - queue names. Queue name itself is always included
+     * @param timeout how long to wait before giving up
+     * @return Future object with the head of this queue, or {@code null} if the
+     *         specified waiting time elapses before an element is available
+     */
+    RFuture<Entry<String, V>> pollFromAnyWithNameAsync(Duration timeout, String... queueNames);
 
     /**
      * Retrieves and removes first available head elements of <b>any</b> queue,
